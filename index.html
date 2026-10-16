@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>註銷圖書轉贈｜書目清冊</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero"><div class="wrap"><p class="eyebrow">LIBRARY BOOK REDISTRIBUTION</p><h1>註銷圖書轉贈清冊</h1><p>瀏覽可索取書目，索取狀態定時更新。</p></div></header>
+<main class="wrap">
+  <section class="toolbar"><input id="search" type="search" placeholder="搜尋書名、作者或條碼…" aria-label="搜尋書目">
+    <select id="statusFilter" aria-label="篩選狀態"><option value="all">全部狀態</option><option value="available">尚可索取</option><option value="claimed">已被索取</option></select>
+    <button id="refreshBtn" class="secondary">立即更新</button></section>
+  <div class="summary" id="summary">正在載入書目…</div>
+  <div id="message" class="message" role="status"></div>
+  <div class="table-scroll"><table><thead><tr><th>書名</th><th>作者</th><th>條碼號</th><th>索取情況</th></tr></thead><tbody id="books"><tr><td colspan="4">載入中…</td></tr></tbody></table></div>
+  <p class="footnote">索取狀態會自動更新；若剛完成登記，請稍候或按「立即更新」。本清冊不顯示讀者個人資料。</p>
+</main><footer><div class="wrap">圖書館｜註銷圖書轉贈活動</div></footer>
+<script src="config.js"></script><script src="app.js"></script>
+</body></html>
