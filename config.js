@@ -8,7 +8,7 @@ window.APP_CONFIG = {
   SUPABASE_ANON_KEY: "sb_publishable_hEaU7Ag60wnVNVUH-3BYdQ_NT-v2bqQ",
 
   PUBLIC_BOOKS_URL:
-    "https://rpmtvuuhbsifdpyjllzp.supabase.co/functions/v1/claim-book",
+    "https://rpmtvuuhbsifdpyjllzp.supabase.co/functions/v1/public-books",
 
   CLAIM_BOOK_URL:
     "https://rpmtvuuhbsifdpyjllzp.supabase.co/functions/v1/claim-book"
