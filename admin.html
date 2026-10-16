@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>註銷圖書轉贈｜登記後台</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="hero"><div class="wrap"><p class="eyebrow">STAFF ONLY</p><h1>索取登記後台</h1><p>請由承辦館員操作，送出前再次核對讀者證號與圖書條碼。</p></div></header>
+<main class="wrap admin-layout">
+  <section class="panel"><h2>新增索取紀錄</h2>
+    <form id="requestForm">
+      <label for="readerId">讀者證號</label><input id="readerId" name="readerId" required maxlength="80" autocomplete="off" placeholder="輸入讀者證號">
+      <label for="barcode">索取書目條碼號</label><input id="barcode" name="barcode" required maxlength="100" autocomplete="off" placeholder="可掃描或輸入條碼">
+      <label for="adminPin">後台驗證碼</label><input id="adminPin" name="adminPin" required type="password" autocomplete="current-password" placeholder="由管理員設定">
+      <button type="submit" id="submitBtn">確認登記</button>
+      <div id="adminMessage" class="message" role="status"></div>
+    </form>
+  </section>
+  <section class="panel"><h2>操作說明</h2><ol><li>先在 Google 試算表「Books」工作表確認書目條碼正確。</li><li>輸入讀者證號與該書條碼，按「確認登記」。</li><li>系統會檢查書目是否存在、是否已被索取；成功後會更新書目狀態並新增紀錄。</li><li>前台會每 30 秒自動重新整理狀態。</li></ol><p class="warning">讀者證號屬個人資料，請限制後台網址的散布、使用強驗證碼，並依館方個資保存規範管理試算表及紀錄。</p><p><a href="./index.html">← 返回公開書目清冊</a></p></section>
+</main><script src="config.js"></script><script src="admin.js"></script></body></html>
