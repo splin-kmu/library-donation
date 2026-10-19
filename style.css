@@ -24,9 +24,9 @@ input,select,button{font:inherit;border:1px solid #cbd5ce;border-radius:9px;padd
 
 /* 目前選中的語言 */
 .language-switch button[aria-pressed="true"] {
-  background-color: #315b85;
-  border-color: #315b85;
-  color: #ffffff;
+  background-color: #ffcc00;
+  border-color: #ffcc00;
+  color: #244567;
 }
 
 /* 滑鼠移到按鈕上 */
@@ -35,11 +35,11 @@ input,select,button{font:inherit;border:1px solid #cbd5ce;border-radius:9px;padd
   color: #244567;
 }
 
-/* 滑鼠移到目前選中的按鈕上，仍保持選中效果 */
+/* 滑鼠移到目前選中的按鈕上，仍保持黃色 */
 .language-switch button[aria-pressed="true"]:hover {
-  background-color: #244567;
-  border-color: #244567;
-  color: #ffffff;
+  background-color: #f0b800;
+  border-color: #f0b800;
+  color: #244567;
 }
 
 /* 鍵盤操作時的焦點提示 */
