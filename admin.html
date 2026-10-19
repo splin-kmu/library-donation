@@ -17,5 +17,20 @@
       <div id="adminMessage" class="message" role="status"></div>
     </form>
   </section>
-  <section class="panel"><h2>操作說明</h2><ol><li>先在 Google 試算表「Books」工作表確認書目條碼正確。</li><li>輸入讀者證號與該書條碼，按「確認登記」。</li><li>系統會檢查書目是否存在、是否已被索取；成功後會更新書目狀態並新增紀錄。</li><li>前台會每 30 秒自動重新整理狀態。</li></ol><p class="warning">讀者證號屬個人資料，請限制後台網址的散布、使用強驗證碼，並依館方個資保存規範管理試算表及紀錄。</p><p><a href="./index.html">← 返回公開書目清冊</a></p></section>
+  
+<section class="panel">
+  <h2>操作說明</h2>
+  <ol>
+    <li>輸入讀者證號。</li>
+    <li>在書籍條碼欄位中，每行輸入一本書的條碼。</li>
+    <li>送出前再次核對讀者證號及所有條碼。</li>
+    <li>系統會逐本檢查書籍狀態並登記，請確認每本書的結果。</li>
+    <li>若出現連線失敗或結果不明，先查詢書籍與索取紀錄，再決定是否重試。</li>
+  </ol>
+  <p class="warning">
+    此後台不使用驗證碼。請勿公開散布後台網址，並依館方個資規範管理讀者資料。
+  </p>
+  <p><a href="./index.html">← 返回公開書目清冊</a></p>
+</section>
+
 </main><script src="config.js"></script><script src="admin.js"></script></body></html>
