@@ -1,21 +1,135 @@
-<!doctype html>
-<html lang="zh-Hant">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>註銷圖書轉贈｜登記後台</title><link rel="stylesheet" href="style.css"></head>
-<body>
-<header class="hero"><div class="wrap"><p class="eyebrow">STAFF ONLY</p><h1>索取登記後台</h1><p>請由承辦館員操作，送出前再次核對讀者證號與圖書條碼。</p></div></header>
-<main class="wrap admin-layout">
-  <section class="panel"><h2>新增索取紀錄</h2>
-    <form id="requestForm">
-      <label for="readerId">讀者證號</label><input id="readerId" name="readerId" required maxlength="80" autocomplete="off" placeholder="輸入讀者證號">
-      <label for="barcode">書籍條碼（每行一本）</label>
-        <textarea id="barcode" rows="6"
-          placeholder="TEST000001&#10;TEST000002"
-          required>
-        </textarea>
-      <button type="submit" id="submitBtn">確認登記</button>
-      <div id="adminMessage" class="message" role="status"></div>
-    </form>
-  </section>
-  <section class="panel"><h2>操作說明</h2><ol><li>先在 Google 試算表「Books」工作表確認書目條碼正確。</li><li>輸入讀者證號與該書條碼，按「確認登記」。</li><li>系統會檢查書目是否存在、是否已被索取；成功後會更新書目狀態並新增紀錄。</li><li>前台會每 30 秒自動重新整理狀態。</li></ol><p class="warning">讀者證號屬個人資料，請限制後台網址的散布、使用強驗證碼，並依館方個資保存規範管理試算表及紀錄。</p><p><a href="./index.html">← 返回公開書目清冊</a></p></section>
-</main><script src="config.js"></script><script src="admin.js"></script></body></html>
+
+const CONFIG = window.APP_CONFIG || {};
+const CLAIM_URL = CONFIG.CLAIM_BOOK_URL || "";
+const ANON_KEY = CONFIG.SUPABASE_ANON_KEY || "";
+
+const form = document.getElementById("requestForm");
+const msg = document.getElementById("adminMessage");
+const btn = document.getElementById("submitBtn");
+
+function showMessage(type, text) {
+  msg.className = `message ${type}`;
+  msg.textContent = text;
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  msg.className = "message";
+  msg.replaceChildren();
+
+  if (!CLAIM_URL || !ANON_KEY) {
+    showMessage(
+      "error",
+      "請檢查 config.js 是否已設定 CLAIM_BOOK_URL 與 SUPABASE_ANON_KEY。"
+    );
+    return;
+  }
+
+  const readerId = document.getElementById("readerId").value.trim();
+  const rawBarcodes = document.getElementById("barcode").value;
+
+  // 支援每行一個條碼，也支援以逗號或分號分隔。
+  const barcodes = [
+    ...new Set(
+      rawBarcodes
+        .split(/[\n\r,;，；]+/)
+        .map((value) => value.trim())
+        .filter(Boolean)
+    )
+  ];
+
+  if (!readerId || barcodes.length === 0) {
+    showMessage("error", "請輸入讀者證號及至少一筆書籍條碼。");
+    return;
+  }
+
+  if (readerId.length > 100 || barcodes.some((code) => code.length > 100)) {
+    showMessage("error", "讀者證號或書籍條碼長度超過限制。");
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "登記中…";
+
+  const results = [];
+  let successCount = 0;
+
+  try {
+    // 逐本呼叫既有的 claim-book，不需建立新函式。
+    for (const barcode of barcodes) {
+      try {
+        const response = await fetch(CLAIM_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": ANON_KEY,
+            "Authorization": `Bearer ${ANON_KEY}`
+          },
+          body: JSON.stringify({
+            barcode,
+            reader_card_id: readerId
+          })
+        });
+
+        let data;
+        try {
+          data = await response.json();
+        } catch {
+          data = null;
+        }
+
+        if (!response.ok) {
+          const detail =
+            data?.message ||
+            data?.error ||
+            `HTTP ${response.status}`;
+
+          results.push(`❌ ${barcode}：${detail}`);
+          continue;
+        }
+
+        if (data?.ok === true) {
+          successCount++;
+          results.push(`✅ ${barcode}：登記成功`);
+        } else {
+          results.push(
+            `❌ ${barcode}：${data?.message || "登記未成功"}`
+          );
+        }
+      } catch {
+        results.push(
+          `⚠️ ${barcode}：連線失敗，請查詢後台資料後再決定是否重試`
+        );
+      }
+    }
+
+    const resultBox = document.createElement("div");
+    resultBox.className = "message";
+    resultBox.setAttribute("role", "status");
+
+    const summary = document.createElement("p");
+    summary.textContent =
+      `處理完成：共 ${barcodes.length} 本，` +
+      `成功 ${successCount} 本，` +
+      `未確認成功 ${barcodes.length - successCount} 本。`;
+
+    const list = document.createElement("ul");
+
+    for (const result of results) {
+      const item = document.createElement("li");
+      item.textContent = result;
+      list.appendChild(item);
+    }
+
+    resultBox.append(summary, list);
+    msg.replaceChildren(resultBox);
+
+    if (successCount === barcodes.length) {
+      document.getElementById("readerId").value = "";
+      document.getElementById("barcode").value = "";
+    }
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "確認登記";
+  }
+});
