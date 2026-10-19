@@ -5,3 +5,45 @@ main{padding:26px 0 44px}.toolbar{display:flex;gap:10px;margin-bottom:16px;flex-
 input,select,button{font:inherit;border:1px solid #cbd5ce;border-radius:9px;padding:11px 12px;background:#fff;color:var(--ink)}button{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:650;cursor:pointer}button:disabled{opacity:.55;cursor:wait}.secondary{background:#fff;color:var(--brand)}
 .summary{font-weight:650;margin:12px 0}.table-scroll{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:650px}th,td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line)}th{background:#eef3ef;font-size:.9rem}tbody tr:last-child td{border-bottom:0}.status{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.85rem;font-weight:700}.available{background:#e2f4e8;color:#23643a}.claimed{background:#fce8e6;color:#a12c25}.message{margin-top:12px;min-height:1.5em;color:var(--muted)}.message.error{color:#b42318}.message.success{color:#247342}.footnote{font-size:.9rem;color:var(--muted);margin-top:15px}footer{border-top:1px solid var(--line);padding:20px 0;color:var(--muted);font-size:.9rem}
 .admin-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}.panel h2{margin-top:0}.panel form{display:flex;flex-direction:column;gap:8px}.panel label{font-weight:650;margin-top:8px}.panel form button{margin-top:12px}.warning{background:#fff6e5;border-left:4px solid #d99a20;padding:12px;font-size:.92rem}a{color:#315b49}@media(max-width:700px){.admin-layout{grid-template-columns:1fr}.hero{padding:30px 0}.toolbar>*{width:100%}}
+
+
+/* 語言切換按鈕 */
+.language-switch {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.language-switch button {
+  border: 2px solid #315b85;
+  background-color: #ffffff;
+  color: #315b85;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* 目前選中的語言 */
+.language-switch button[aria-pressed="true"] {
+  background-color: #315b85;
+  border-color: #315b85;
+  color: #ffffff;
+}
+
+/* 滑鼠移到按鈕上 */
+.language-switch button:hover {
+  background-color: #e4edf7;
+  color: #244567;
+}
+
+/* 滑鼠移到目前選中的按鈕上，仍保持選中效果 */
+.language-switch button[aria-pressed="true"]:hover {
+  background-color: #244567;
+  border-color: #244567;
+  color: #ffffff;
+}
+
+/* 鍵盤操作時的焦點提示 */
+.language-switch button:focus-visible {
+  outline: 3px solid #e5a000;
+  outline-offset: 3px;
+}
