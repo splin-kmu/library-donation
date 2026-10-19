@@ -8,8 +8,11 @@
   <section class="panel"><h2>新增索取紀錄</h2>
     <form id="requestForm">
       <label for="readerId">讀者證號</label><input id="readerId" name="readerId" required maxlength="80" autocomplete="off" placeholder="輸入讀者證號">
-      <label for="barcode">索取書目條碼號</label><input id="barcode" name="barcode" required maxlength="100" autocomplete="off" placeholder="可掃描或輸入條碼">
-      <label for="adminPin">後台驗證碼</label><input id="adminPin" name="adminPin" required type="password" autocomplete="current-password" placeholder="由管理員設定">
+      <label for="barcode">書籍條碼（每行一本）</label>
+        <textarea id="barcode" rows="6"
+          placeholder="TEST000001&#10;TEST000002"
+          required>
+        </textarea>
       <button type="submit" id="submitBtn">確認登記</button>
       <div id="adminMessage" class="message" role="status"></div>
     </form>
