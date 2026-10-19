@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>註銷圖書轉贈｜書目清冊</title>
+  <title>註銷圖書轉贈清冊 | Library Book Redistribution</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,58 +13,56 @@
     <p class="eyebrow">LIBRARY BOOK REDISTRIBUTION</p>
     <h1 id="pageTitle">註銷圖書轉贈清冊</h1>
     <p id="pageDescription">瀏覽可索取書目，索取狀態定時更新。</p>
+    <div class="language-switch" aria-label="Language">
+      <button id="zhBtn" type="button" class="secondary" aria-pressed="true">中文</button>
+      <button id="enBtn" type="button" class="secondary" aria-pressed="false">English</button>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
   <section class="toolbar">
-    <label for="interfaceLanguage" id="interfaceLanguageLabel">介面語言</label>
-    <select id="interfaceLanguage" aria-label="介面語言">
-      <option value="zh">繁體中文</option>
-      <option value="en">English</option>
-    </select>
-
-    <input id="search" type="search"
-      placeholder="搜尋書名、作者或條碼…"
-      aria-label="搜尋書目">
-
-    <select id="statusFilter" aria-label="篩選索取情況">
-      <option value="all">全部狀態</option>
+    <input
+      id="search"
+      type="search"
+      placeholder="搜尋書名、作者、條碼或其他書目資料…"
+      aria-label="搜尋書目"
+    >
+    <select id="statusFilter" aria-label="篩選索取狀態">
+      <option value="all">全部索取狀態</option>
       <option value="available">尚可索取</option>
       <option value="claimed">已被索取</option>
     </select>
-
-    <select id="languageFilter" aria-label="篩選書籍語言">
+    <select id="languageFilter" aria-label="篩選語言">
       <option value="all">全部語言</option>
       <option value="zh">中文</option>
       <option value="en">英文</option>
     </select>
-
-    <select id="classificationFilter" aria-label="篩選分類法或分類號">
+    <select id="classificationFilter" aria-label="篩選分類">
       <option value="all">全部分類</option>
     </select>
-
-    <button id="refreshBtn" class="secondary">立即更新</button>
+    <button id="refreshBtn" class="secondary" type="button">立即更新</button>
   </section>
 
-  <div class="summary" id="summary">正在載入書目…</div>
+  <div class="summary" id="summary" aria-live="polite">正在載入書目…</div>
   <div id="message" class="message" role="status"></div>
 
   <div class="table-scroll">
     <table>
       <thead>
         <tr>
-          <th data-i18n="title">書名</th>
-          <th data-i18n="author">作者</th>
-          <th data-i18n="barcode">條碼號</th>
-          <th data-i18n="language">語言別</th>
-          <th data-i18n="classification">分類法／分類號</th>
-          <th data-i18n="location">圖書位置</th>
-          <th data-i18n="status">索取情況</th>
+          <th scope="col" data-i18n="title">書名</th>
+          <th scope="col" data-i18n="author">作者</th>
+          <th scope="col" data-i18n="barcode">條碼號</th>
+          <th scope="col" data-i18n="language">語言別</th>
+          <th scope="col" data-i18n="callNumber">索書號</th>
+          <th scope="col" data-i18n="classification">分類</th>
+          <th scope="col" data-i18n="location">圖書位置</th>
+          <th scope="col" data-i18n="status">索取情況</th>
         </tr>
       </thead>
       <tbody id="books">
-        <tr><td colspan="7">載入中…</td></tr>
+        <tr><td colspan="8">載入中…</td></tr>
       </tbody>
     </table>
   </div>
