@@ -1,19 +1,85 @@
+
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>註銷圖書轉贈｜書目清冊</title><link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>註銷圖書轉贈｜書目清冊</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="hero"><div class="wrap"><p class="eyebrow">LIBRARY BOOK REDISTRIBUTION</p><h1>註銷圖書轉贈清冊</h1><p>瀏覽可索取書目，索取狀態定時更新。</p></div></header>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">LIBRARY BOOK REDISTRIBUTION</p>
+    <h1 id="pageTitle">註銷圖書轉贈清冊</h1>
+    <p id="pageDescription">瀏覽可索取書目，索取狀態定時更新。</p>
+  </div>
+</header>
+
 <main class="wrap">
-  <section class="toolbar"><input id="search" type="search" placeholder="搜尋書名、作者或條碼…" aria-label="搜尋書目">
-    <select id="statusFilter" aria-label="篩選狀態"><option value="all">全部狀態</option><option value="available">尚可索取</option><option value="claimed">已被索取</option></select>
-    <button id="refreshBtn" class="secondary">立即更新</button></section>
+  <section class="toolbar">
+    <label for="interfaceLanguage" id="interfaceLanguageLabel">介面語言</label>
+    <select id="interfaceLanguage" aria-label="介面語言">
+      <option value="zh">繁體中文</option>
+      <option value="en">English</option>
+    </select>
+
+    <input id="search" type="search"
+      placeholder="搜尋書名、作者或條碼…"
+      aria-label="搜尋書目">
+
+    <select id="statusFilter" aria-label="篩選索取情況">
+      <option value="all">全部狀態</option>
+      <option value="available">尚可索取</option>
+      <option value="claimed">已被索取</option>
+    </select>
+
+    <select id="languageFilter" aria-label="篩選書籍語言">
+      <option value="all">全部語言</option>
+      <option value="zh">中文</option>
+      <option value="en">英文</option>
+    </select>
+
+    <select id="classificationFilter" aria-label="篩選分類法或分類號">
+      <option value="all">全部分類</option>
+    </select>
+
+    <button id="refreshBtn" class="secondary">立即更新</button>
+  </section>
+
   <div class="summary" id="summary">正在載入書目…</div>
   <div id="message" class="message" role="status"></div>
-  <div class="table-scroll"><table><thead><tr><th>書名</th><th>作者</th><th>條碼號</th><th>索取情況</th></tr></thead><tbody id="books"><tr><td colspan="4">載入中…</td></tr></tbody></table></div>
-  <p class="footnote">索取狀態會自動更新；若剛完成登記，請稍候或按「立即更新」。本清冊不顯示讀者個人資料。</p>
-</main><footer><div class="wrap">圖書館｜註銷圖書轉贈活動</div></footer>
-<script src="config.js"></script><script src="app.js"></script>
-</body></html>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th data-i18n="title">書名</th>
+          <th data-i18n="author">作者</th>
+          <th data-i18n="barcode">條碼號</th>
+          <th data-i18n="language">語言別</th>
+          <th data-i18n="classification">分類法／分類號</th>
+          <th data-i18n="location">圖書位置</th>
+          <th data-i18n="status">索取情況</th>
+        </tr>
+      </thead>
+      <tbody id="books">
+        <tr><td colspan="7">載入中…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="footnote" id="footnote">
+    索取狀態會自動更新；若剛完成登記，請稍候或按「立即更新」。
+    本清冊不顯示讀者個人資料。
+  </p>
+</main>
+
+<footer>
+  <div class="wrap" id="footerText">圖書館｜註銷圖書轉贈活動</div>
+</footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
