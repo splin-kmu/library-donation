@@ -83,28 +83,52 @@ function normalise(value) {
   return String(value ?? "").trim().toLocaleLowerCase();
 }
 
+
 function languageCode(value) {
   const v = normalise(value);
 
-  if (["zh", "zh-tw", "zh-cn", "chinese", "中文", "華文", "华文", "國語", "国语"].includes(v)) {
-    return "zh";
+  if ([
+    "chi", "zh", "zh-tw", "zh-cn",
+    "chinese", "中文", "華文", "华文", "國語", "国语"
+  ].includes(v)) {
+    return "chi";
   }
 
-  if (["en", "en-us", "en-gb", "english", "英文"].includes(v)) {
-    return "en";
+  if ([
+    "eng", "en", "en-us", "en-gb",
+    "english", "英文"
+  ].includes(v)) {
+    return "eng";
+  }
+
+  if ([
+    "jpn", "ja", "ja-jp",
+    "japanese", "日本語", "日文"
+  ].includes(v)) {
+    return "jpn";
   }
 
   return "other";
 }
 
+
+
 function displayLanguage(value) {
   const code = languageCode(value);
 
-  if (code === "zh") return t("chinese");
-  if (code === "en") return t("english");
+  const names = {
+    chi: { zh: "中文", en: "Chinese" },
+    eng: { zh: "英文", en: "English" },
+    jpn: { zh: "日文", en: "Japanese" }
+  };
+
+  if (names[code]) {
+    return names[code][currentLanguage];
+  }
 
   return value || "—";
 }
+
 
 function displayStatus(status) {
   if (status === "available") return t("available");
@@ -131,7 +155,9 @@ function setLanguage(language) {
   $("search").placeholder = t("search");
   $("search").setAttribute("aria-label", t("search"));
   $("statusFilter").setAttribute("aria-label", t("status"));
+  
   $("languageFilter").setAttribute("aria-label", t("language"));
+  
   $("classificationFilter").setAttribute("aria-label", t("classification"));
   $("refreshBtn").textContent = t("refresh");
   $("footnote").textContent = t("footnote");
@@ -146,11 +172,14 @@ function setLanguage(language) {
     <option value="claimed">${esc(t("claimed"))}</option>
   `;
 
+
   $("languageFilter").innerHTML = `
     <option value="all">${esc(t("allLanguages"))}</option>
-    <option value="zh">${esc(t("chinese"))}</option>
-    <option value="en">${esc(t("english"))}</option>
+    <option value="chi">${esc(t("chinese"))}</option>
+    <option value="eng">${esc(t("english"))}</option>
+    <option value="jpn">${currentLanguage === "zh" ? "日文" : "Japanese"}</option>
   `;
+
 
   document.querySelectorAll("[data-i18n]").forEach(element => {
     const key = element.dataset.i18n;
