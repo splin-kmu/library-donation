@@ -273,68 +273,84 @@ a {
   display: none;
 }
 
+
 /* =================================
-   英文版桌面表格
+   桌面版中英文共用表格配置
    ================================= */
 
-/* 英文版取消水平捲動 */
-body:has(#enBtn[aria-pressed="true"]) .table-scroll {
-  overflow-x: hidden;
+@media (min-width: 701px) {
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+  }
+
+  th,
+  td {
+    padding: 11px 9px;
+    font-size: 0.85rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  /* 書名 */
+  th:nth-child(1) {
+    width: 22%;
+  }
+
+  /* 作者 */
+  th:nth-child(2) {
+    width: 13%;
+  }
+
+  /* 條碼號 */
+  th:nth-child(3) {
+    width: 12%;
+  }
+
+  /* 語言別 */
+  th:nth-child(4) {
+    width: 9%;
+  }
+
+  /* 索書號 */
+  th:nth-child(5) {
+    width: 15%;
+  }
+
+  /* 分類 */
+  th:nth-child(6) {
+    width: 11%;
+  }
+
+  /* 圖書位置 */
+  th:nth-child(7) {
+    width: 9%;
+  }
+
+  /* 索取情況 */
+  th:nth-child(8) {
+    width: 9%;
+  }
+
+  /* 表頭保持清楚 */
+  th {
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  /* 書目內容允許必要換行 */
+  td {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
 }
 
-/* 英文版表格使用固定欄寬 */
-body:has(#enBtn[aria-pressed="true"]) table {
-  width: 100%;
-  min-width: 0;
-  table-layout: fixed;
-}
-
-/* 英文版儲存格 */
-body:has(#enBtn[aria-pressed="true"]) th,
-body:has(#enBtn[aria-pressed="true"]) td {
-  padding: 11px 9px;
-  font-size: .85rem;
-  overflow-wrap: anywhere;
-  word-break: normal;
-}
-
-/* 英文版欄位寬度 */
-body:has(#enBtn[aria-pressed="true"]) th:nth-child(1) {
-  width: 22%;
-}
-
-body:has(#enBtn[aria-pressed="true"]) th:nth-child(2) {
-  width: 13%;
-}
-
-body:has(#enBtn[aria-pressed="true"]) th:nth-child(3) {
-  width: 12%;
-}
-
-body:has(#enBtn[aria-pressed="true"]) th:nth-child(4) {
-  width: 9%;
-}
-
-body:has(#enBtn[aria-pressed="true"]) th:nth-child(5) {
-  width: 15%;
-}
-
-body:has(#enBtn[aria-pressed="true"]) th:nth-child(6) {
-  width: 11%;
-}
-
-body:has(#enBtn[aria-pressed="true"]) th:nth-child(7) {
-  width: 9%;
-}
-
-body:has(#enBtn[aria-pressed="true"]) th:nth-child(8) {
-  width: 9%;
-}
-
-/* 英文版表頭 */
-body:has(#enBtn[aria-pressed="true"]) th {
-  line-height: 1.4;
-}
 
 /* =================================
    手機版
